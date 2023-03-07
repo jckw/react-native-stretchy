@@ -16,7 +16,15 @@ const StretchyFlatList = React.forwardRef<
   StretchyFlatListProps<unknown>
 >(
   (
-    { foreground, imageHeight, onScroll, stretchy, style, ...otherProps },
+    {
+      foreground,
+      imageHeight,
+      onScroll,
+      stretchy,
+      style,
+      ListHeaderComponent,
+      ...otherProps
+    },
     ref,
   ) => (
     <Animated.FlatList
@@ -26,13 +34,16 @@ const StretchyFlatList = React.forwardRef<
       scrollEventThrottle={1}
       onScroll={stretchy.onScroll}
       ListHeaderComponent={
-        <View
-          style={[
-            styles.foregroundContainer,
-            { height: imageHeight || stretchy.heightBasedOnRatio },
-          ]}>
-          {foreground}
-        </View>
+        <>
+          <View
+            style={[
+              styles.foregroundContainer,
+              { height: imageHeight || stretchy.heightBasedOnRatio },
+            ]}>
+            {foreground}
+          </View>
+          {ListHeaderComponent}
+        </>
       }
     />
   ),
